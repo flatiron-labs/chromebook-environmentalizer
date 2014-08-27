@@ -40,6 +40,12 @@ function installRVM {
   rvm use 2.1.2 --default
 }
 
+function installNokogiri {
+  echo 'Installing Nokogiri... This could be a while...'
+  cd ~
+  gem install nokogiri
+}
+
 function getGitconfig {
   echo "Setting up .gitconfig and GitHub SSH Key..."
   cd ~
@@ -145,6 +151,7 @@ function completeSetup {
 editSudoers
 copyBashProfile
 installRVM
+installNokogiri
 getGitconfig
 setupGemrc
 getIrbrc
