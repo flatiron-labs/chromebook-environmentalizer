@@ -31,4 +31,4 @@ A bash script to finish bootstraping an Acer c720 Chromebook that was set up usi
 
 ## Usage
 
-`curl -Lo- "https://raw.githubusercontent.com/flatiron-school/environmentalizer/master/bootstrap.sh" | bash`
+`curl -Lo- "https://raw.githubusercontent.com/flatiron-labs/chromebook-environmentalizer/master/bootstrap.sh" | bash`
