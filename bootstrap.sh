@@ -35,6 +35,7 @@ function installRVM {
 
   \curl -L https://get.rvm.io | bash -s stable --ruby=2.1.2
   source $HOME/.bashrc
+  source $HOME/.rvm/scripts/rvm
 
   rvm use 2.1.2 --default
 }
@@ -48,7 +49,7 @@ function getGitconfig {
   fi
 
   curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/gitconfig" -o ".gitconfig"
-  sed -i '' "s/<YOUR HOME DIRECTORY>/$USER/g" .gitconfig
+  sed -i "s/<YOUR HOME DIRECTORY>/$USER/g" .gitconfig
 
   printf 'Enter your GitHub username: '
   read username < /dev/tty
@@ -59,9 +60,9 @@ function getGitconfig {
   printf 'Enter your GitHub API key (set one up at https://github.com/settings/applications): '
   read apikey < /dev/tty
 
-  sed -i '' "s/<github username>/$username/g" .gitconfig
-  sed -i '' "s/<API token>/$apikey/g" .gitconfig
-  sed -i '' "s/<github email address>/$email/g" .gitconfig
+  sed -i "s/<github username>/$username/g" .gitconfig
+  sed -i "s/<API token>/$apikey/g" .gitconfig
+  sed -i "s/<github email address>/$email/g" .gitconfig
 
   if [ ! -f .ssh/id_rsa.pub ]; then
     ssh-keygen -t rsa -N '' -C "$username@github" -f "$HOME/.ssh/id_rsa"
@@ -132,9 +133,9 @@ function setupDirStructure {
 #   rm "Solarized Flatiron.zip"
   
 #   cd "$HOME/Library/Application Support/Sublime Text 2/Packages/Default"
-#   sed -i '' "s/\"color_scheme\": \"Packages\/Color Scheme - Default\/Monokai.tmTheme\",/\"color_scheme\": \"Packages\/Color Scheme - Default\/Solarized Light (Flatiron).tmTheme\",/g" Preferences.sublime-settings
-#   sed -i '' "s/\"tab_size\": 4,/\"tab_size\": 2,/g" Preferences.sublime-settings
-#   sed -i '' "s/\"translate_tabs_to_spaces\": false,/\"translate_tabs_to_spaces\": true,/g" Preferences.sublime-settings
+#   sed -i "s/\"color_scheme\": \"Packages\/Color Scheme - Default\/Monokai.tmTheme\",/\"color_scheme\": \"Packages\/Color Scheme - Default\/Solarized Light (Flatiron).tmTheme\",/g" Preferences.sublime-settings
+#   sed -i "s/\"tab_size\": 4,/\"tab_size\": 2,/g" Preferences.sublime-settings
+#   sed -i "s/\"translate_tabs_to_spaces\": false,/\"translate_tabs_to_spaces\": true,/g" Preferences.sublime-settings
 # }
 
 function completeSetup {
