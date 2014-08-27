@@ -4,7 +4,7 @@ A bash script to finish bootstraping an Acer c720 Chromebook that was set up usi
 
 ## What It Sets Up
 
-1. Flatiron School's standard `.bash_profile`, which includes case-insensitive auto completion, a nice prompt with git branch awareness, and many useful shortcuts.
+1. Flatiron School's standard `.bashrc`, which includes case-insensitive auto completion, a nice prompt with git branch awareness, and many useful shortcuts.
 2. RVM and Ruby 2.1.2
 3. Sensible `.gitconfig`, `.gitignore`, `.gemrc`, and `.irbrc` files
 4. SSH Key for GitHub 

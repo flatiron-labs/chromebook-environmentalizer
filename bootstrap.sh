@@ -19,14 +19,14 @@ function restoreSudoers {
 }
 
 function copyBashProfile {
-  echo 'Getting Flatiron School .bash_profile...'
+  echo 'Getting Flatiron School .bashrc...'
   cd ~
   
-  if [ -f .bash_profile ]; then
-    mv .bash_profile .bash_profile.old
+  if [ -f .bashrc ]; then
+    mv .bashrc .bashrc.old
   fi
 
-  curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/bash_profile" -o ".bash_profile"
+  curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/bashrc" -o ".bashrc"
 }
 
 function installRVM {
@@ -34,7 +34,7 @@ function installRVM {
   cd ~
 
   \curl -L https://get.rvm.io | bash -s stable --ruby=2.1.2
-  source $HOME/.bash_profile
+  source $HOME/.bashrc
 
   rvm use 2.1.2 --default
 }
