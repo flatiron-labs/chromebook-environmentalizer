@@ -63,7 +63,10 @@ function getGitconfig {
   printf 'Enter your GitHub email address: '
   read email < /dev/tty
 
-  printf 'Enter your GitHub API key (set one up at https://github.com/settings/applications): '
+  echo 'You will need to set up an apikey with Github.'
+  echo 'Visit https://github.com/settings/applications to set one up.'
+  echo 'You MUST select atleast, repo, public_repo, write:public_key, user, admin:public_key, and gist.'
+  printf 'Enter your GitHub API key: '
   read apikey < /dev/tty
 
   sed -i "s/<github username>/$username/g" .gitconfig
@@ -120,6 +123,14 @@ function setupDirStructure {
   mkdir -p Development/code
 }
 
+function setupPostgresUser {
+  echo 'Setting up postgres user...'
+  cd ~
+
+  sudo -u postgres psql -c "CREATE USER $USER"
+  sudo touch /var/lib/postgresql/.psql_history
+}
+
 # This should be put in the ubuntu installer when it adds sublime
 # function setsUpSublimePreferences {
 #   echo 'Setting Up SublimeText 3.0...'
@@ -156,6 +167,7 @@ getGitconfig
 setupGemrc
 getIrbrc
 setupDirStructure
+setupPostgresUser
 # setsUpSublimePreferences
 restoreSudoers
 completeSetup
