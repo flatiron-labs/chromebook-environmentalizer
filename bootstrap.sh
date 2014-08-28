@@ -47,6 +47,7 @@ function installNokogiri {
 }
 
 function getGitconfig {
+  echo ''
   echo "Setting up .gitconfig and GitHub SSH Key..."
   cd ~
   
@@ -124,6 +125,7 @@ function setupDirStructure {
 }
 
 function setupPostgresUser {
+  echo ''
   echo 'Setting up postgres user...'
   echo 'You will be required to enter your password again...'
   cd ~
