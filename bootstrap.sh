@@ -117,6 +117,24 @@ function getIrbrc {
   curl "https://gist.githubusercontent.com/loganhasson/f9fe9a73a1839ba1ef4a/raw/f65cef4fd4ac12d832e109eaca477c5b2dc686b0/.irbrc" -o ".irbrc"
 }
 
+function setupSublimePreferences {
+  echo 'Setting Up SublimeText 3.0...'
+  cd ~
+  subl && sleep 3
+  kill -15 $(ps aux | grep subl | grep -v grep | awk '{ print $2 }')
+  
+  cd "$HOME/.config/sublime-text-3/Installed Packages"
+  curl "https://sublime.wbond.net/Package%20Control.sublime-package" -o "Package Control.sublime-package"
+
+  cd "$HOME/.config/sublime-text-3/Packages/User"
+  curl "http://flatironschool.s3.amazonaws.com/curriculum/resources/environment/themes/Solarized%20Flatiron.zip" -o "Solarized Flatiron.zip"
+  tar -zxvf "Solarized Flatiron.zip"
+  rm "Solarized Flatiron.zip"
+  
+  cd "$HOME/.config/sublime-text-3/Packages/User"
+  curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/Prefences.sublime-settings" -o "Prefences.sublime-settings"
+}
+
 function setupDirStructure {
   echo 'Setting up basic development directory structure...'
   cd ~
@@ -146,6 +164,7 @@ installNokogiri
 getGitconfig
 setupGemrc
 getIrbrc
+setupSublimePreferences
 setupDirStructure
 setupPostgresUser
 restoreSudoers
