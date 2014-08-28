@@ -125,11 +125,12 @@ function setupDirStructure {
 
 function setupPostgresUser {
   echo 'Setting up postgres user...'
+  echo 'You will be required to enter your password again...'
   cd ~
 
-  sudo -u postgres createuser $USER
+  sudo -u postgres createuser -P $USER
   sudo -u postgres createdb $USER
-  sudo touch /var/lib/postgresql/.psql_history
+  # sudo touch /var/lib/postgresql/.psql_history
 }
 
 function completeSetup {
