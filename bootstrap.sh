@@ -132,7 +132,7 @@ function setupSublimePreferences {
   rm "Solarized Flatiron.zip"
   
   cd "$HOME/.config/sublime-text-3/Packages/User"
-  curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/Preferences.sublime-settings" -o "Prefences.sublime-settings"
+  curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/Preferences.sublime-settings" -o "Preferences.sublime-settings"
 }
 
 function setupDirStructure {
