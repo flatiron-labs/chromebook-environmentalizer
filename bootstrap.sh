@@ -160,14 +160,14 @@ function completeSetup {
 }
 
 editSudoers
+getGitconfig
+setupPostgresUser
 copyBashProfile
 installRVM
 installNokogiri
-getGitconfig
 setupGemrc
 getIrbrc
 setupSublimePreferences
 setupDirStructure
-setupPostgresUser
 restoreSudoers
 completeSetup
