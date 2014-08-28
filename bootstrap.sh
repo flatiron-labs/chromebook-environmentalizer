@@ -126,10 +126,12 @@ function setupSublimePreferences {
   cd "$HOME/.config/sublime-text-3/Installed Packages"
   curl "https://sublime.wbond.net/Package%20Control.sublime-package" -o "Package Control.sublime-package"
 
-  cd "$HOME/.config/sublime-text-3/Packages/User"
+  cd "$HOME/.config/sublime-text-3/Packages"
+  mkdir Color\ Scheme\ -\ Default
+  cd Color\ Scheme\ -\ Default
   curl "http://flatironschool.s3.amazonaws.com/curriculum/resources/environment/themes/Solarized%20Flatiron.zip" -o "Solarized Flatiron.zip"
-  tar -zxvf "Solarized Flatiron.zip"
-  rm "Solarized Flatiron.zip"
+  unzip "Solarized Flatiron.zip"
+  rm "Solarized Flatiron.zip" "Solarized Dark (Flatiron).terminal" "Solarized Light (Flatiron).terminal"
   
   cd "$HOME/.config/sublime-text-3/Packages/User"
   curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/Preferences.sublime-settings" -o "Preferences.sublime-settings"
