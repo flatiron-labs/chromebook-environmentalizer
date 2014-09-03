@@ -108,6 +108,8 @@ function getGitconfig {
   echo_yellow 'Connecting to Github. Please enter "yes" to continue.'
   ssh -T git@github.com
 
+  sleep 20
+
 }
 
 function getGitignore {
