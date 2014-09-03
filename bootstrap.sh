@@ -102,6 +102,10 @@ function getGitconfig {
   sshkey=$(cat $HOME/.ssh/id_rsa.pub)
 
   curl -s -u "$username:$apikey" https://api.github.com/user/keys -d "{\"title\":\"$username@github\",\"key\":\"$sshkey\"}"
+
+  echo_yellow 'Connecting to Github. Please enter "yes" to continue.'
+  ssh -T git@github.com
+
 }
 
 function getGitignore {
