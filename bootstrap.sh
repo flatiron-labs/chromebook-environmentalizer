@@ -129,7 +129,7 @@ function setupGemrc {
   fi
 
   touch .gemrc
-  echo_yellow "gem: --no-ri --no-rdoc" > .gemrc
+  echo -e "gem: --no-ri --no-rdoc" > .gemrc
 }
 
 function getIrbrc {
