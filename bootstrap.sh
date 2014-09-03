@@ -2,8 +2,15 @@
 
 trap restoreSudoers INT
 
+echo_yellow()
+{
+echo -e "\E[1;33m$1"
+echo -e '\e[0m'
+}
+
 function editSudoers {
-  echo "Setting up..."
+  echo_yellow ''
+  echo_yellow "Setting up..."
   cd ~
   
   curl "https://raw.githubusercontent.com/flatiron-labs/chromebook-environmentalizer/master/edit_sudoers.sh" -o "edit_sudoers.sh"
@@ -11,7 +18,8 @@ function editSudoers {
 }
 
 function restoreSudoers {
-  echo "Cleaning up..."
+  echo_yellow ''
+  echo_yellow "Cleaning up..."
   cd ~
 
   curl "https://raw.githubusercontent.com/flatiron-labs/chromebook-environmentalizer/master/restore_sudoers.sh" -o "restore_sudoers.sh"
@@ -19,7 +27,8 @@ function restoreSudoers {
 }
 
 function copyBashProfile {
-  echo 'Getting Flatiron School .bashrc...'
+  echo_yellow ''
+  echo_yellow 'Getting Flatiron School .bashrc...'
   cd ~
   
   if [ -f .bashrc ]; then
@@ -30,7 +39,8 @@ function copyBashProfile {
 }
 
 function installRVM {
-  echo 'Installing RVM and Ruby 2.1.2...'
+  echo_yellow ''
+  echo_yellow 'Installing RVM and Ruby 2.1.2...'
   cd ~
 
   \curl -L https://get.rvm.io | bash -s stable --ruby=2.1.2
@@ -41,14 +51,15 @@ function installRVM {
 }
 
 function installNokogiri {
-  echo 'Installing Nokogiri... This could be a while...'
+  echo_yellow ''
+  echo_yellow 'Installing Nokogiri... This could be a while...'
   cd ~
   gem install nokogiri
 }
 
 function getGitconfig {
-  echo ''
-  echo "Setting up .gitconfig and GitHub SSH Key..."
+  echo_yellow ''
+  echo_yellow "Setting up .gitconfig and GitHub SSH Key..."
   cd ~
   
   if [ -f .gitconfig ]; then
@@ -58,16 +69,27 @@ function getGitconfig {
   curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/gitconfig" -o ".gitconfig"
   sed -i "s/<YOUR HOME DIRECTORY>/$USER/g" .gitconfig
 
-  printf 'Enter your GitHub username: '
+  YELLOW=$(tput setaf 3)
+  NORMAL=$(tput sgr0)
+
+  echo_yellow ''
+  echo_yellow 'You will now be prompted to for your github information.'
+  echo_yellow 'If you do not have an account create one at github.com'
+  echo_yellow 'Right click on the link above and select open in browser'
+  printf "${YELLOW}Enter your GitHub username: ${NORMAL}"
   read username < /dev/tty
 
-  printf 'Enter your GitHub email address: '
+  printf "${YELLOW}Enter your GitHub email address: ${NORMAL}"
   read email < /dev/tty
 
-  echo 'You will need to set up an apikey with Github.'
-  echo 'Visit https://github.com/settings/applications to set one up.'
-  echo 'You MUST select atleast, repo, public_repo, write:public_key, user, admin:public_key, and gist.'
-  printf 'Enter your GitHub API key: '
+  echo_yellow 'You will need to set up an apikey with Github.'
+  echo_yellow 'Follow these steps to create one'
+  echo_yellow 'Visit https://github.com/settings/tokens/new to set one up.'
+  echo_yellow 'You MUST select at least, repo, public_repo, write:public_key, user, admin:public_key, and gist.'
+  echo_yellow 'Call this token chromebook-environmentalizer and click Generate Token'
+  echo_yellow 'Copy the token on the next page'
+  echo_yellow 'paste into the command line with [CTRL + SHIFT + v] then press [ENTER]'
+  printf "${YELLOW}Enter your GitHub API key: ${NORMAL}"
   read apikey < /dev/tty
 
   sed -i "s/<github username>/$username/g" .gitconfig
@@ -84,7 +106,8 @@ function getGitconfig {
 }
 
 function getGitignore {
-  echo 'Setting up .gitignore...'
+  echo_yellow ''
+  echo_yellow 'Setting up .gitignore...'
   cd ~
 
   if [ -f .gitignore ]; then
@@ -95,7 +118,8 @@ function getGitignore {
 }
 
 function setupGemrc {
-  echo 'Setting up .gemrc...'
+  echo_yellow ''
+  echo_yellow 'Setting up .gemrc...'
   cd ~
 
   if [ -f .gemrc ]; then
@@ -103,11 +127,12 @@ function setupGemrc {
   fi
 
   touch .gemrc
-  echo "gem: --no-ri --no-rdoc" > .gemrc
+  echo_yellow "gem: --no-ri --no-rdoc" > .gemrc
 }
 
 function getIrbrc {
-  echo 'Setting up .irbrc...'
+  echo_yellow ''
+  echo_yellow 'Setting up .irbrc...'
   cd ~
 
   if [ -f .irbrc ]; then
@@ -118,7 +143,8 @@ function getIrbrc {
 }
 
 function setupSublimePreferences {
-  echo 'Setting Up SublimeText 3.0...'
+  echo_yellow ''
+  echo_yellow 'Setting Up SublimeText 3.0...'
   cd ~
   subl && sleep 3
   kill -15 $(ps aux | grep subl | grep -v grep | awk '{ print $2 }')
@@ -138,16 +164,17 @@ function setupSublimePreferences {
 }
 
 function setupDirStructure {
-  echo 'Setting up basic development directory structure...'
+  echo_yellow ''
+  echo_yellow 'Setting up basic development directory structure...'
   cd ~
 
   mkdir -p Development/code
 }
 
 function setupPostgresUser {
-  echo ''
-  echo 'Setting up postgres user...'
-  echo 'You will be required to enter your password again...'
+  echo_yellow ''
+  echo_yellow 'Setting up postgres user...'
+  echo_yellow 'You will be required to enter your password again...'
   cd ~
 
   sudo -u postgres createuser -P $USER
@@ -156,7 +183,8 @@ function setupPostgresUser {
 }
 
 function completeSetup {
-  echo "Done!"
+  echo_yellow ''
+  echo_yellow "Done!"
 }
 
 editSudoers
