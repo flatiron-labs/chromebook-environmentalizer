@@ -171,12 +171,12 @@ function setupDirStructure {
 }
 
 function setupPostgresUser {
-  echo_yellow "\n"
-  echo_yellow 'Setting up postgres user...'
-  echo_yellow 'You will be required to enter your password again...'
-  cd ~
-
   if [ -d /usr/bin/psql ]; then
+    echo_yellow "\n"
+    echo_yellow 'Setting up postgres user...'
+    echo_yellow 'You will be required to enter your password again...'
+    cd ~
+
     sudo -u postgres createuser -P $USER
     sudo -u postgres createdb $USER
   fi
