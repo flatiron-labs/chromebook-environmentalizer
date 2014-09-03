@@ -4,7 +4,9 @@ trap restoreSudoers INT
 
 echo_yellow()
 {
-echo -e "\E[1;33m$1"
+  YELLOW=$(tput setaf 3)
+  NORMAL=$(tput sgr0)
+  echo "${YELLOW}$1${NORMAL}"
 }
 
 function editSudoers {
@@ -187,6 +189,12 @@ function setupPostgresUser {
   # sudo touch /var/lib/postgresql/.psql_history
 }
 
+function deactivateChromebookEnvironmentalizer {
+  if [ -f /usr/share/upstart/xdg/autostart/chromebook-environmentalizer.desktop ]; then
+    sudo echo -e 'Hidden=true' >> /usr/share/upstart/xdg/autostart/chromebook-environmentalizer.desktop
+  fi
+}
+
 function completeSetup {
   echo_yellow "\n"
   echo_yellow "Done!"
@@ -203,4 +211,5 @@ getIrbrc
 setupSublimePreferences
 setupDirStructure
 restoreSudoers
+deactivateChromebookEnvironmentalizer
 completeSetup
