@@ -174,7 +174,7 @@ function setupDirStructure {
 }
 
 function setupPostgresUser {
-  if [ -d /usr/bin/psql ]; then
+  if [ -f /usr/bin/psql ]; then
     echo_yellow "\n"
     echo_yellow 'Setting up postgres user...'
     echo_yellow 'You will be required to enter your password again...'
