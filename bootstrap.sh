@@ -180,6 +180,7 @@ function setupPostgresUser {
     echo_yellow 'You will be required to enter your password again...'
     cd ~
 
+  if [[ psql postgres -tAc "SELECT 1 FROM pg_roles WHERE rolname='USR_NAME'" -ne 1 ]]; then
     postgresExitCode=1
     while [[ $postgresExitCode -ne 0 ]]; do
       sudo -u postgres createuser -P $USER
@@ -188,6 +189,7 @@ function setupPostgresUser {
         echo_yellow "Sorry something went wrong. Try again."
       fi
     done
+  fi
 
     sudo -u postgres createdb $USER
   fi
