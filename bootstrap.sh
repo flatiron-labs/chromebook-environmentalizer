@@ -77,10 +77,10 @@ function getGitconfig {
   echo_yellow 'You will now be prompted to for your github information.'
   echo_yellow 'If you do not have an account create one at github.com'
   echo_yellow 'Right click on the link above and select "Open Link"'
-  printf "${YELLOW}Enter your GitHub username: ${NORMAL}"
+  printf "Enter your GitHub username: "
   read username < /dev/tty
 
-  printf "${YELLOW}Enter your GitHub email address: ${NORMAL}"
+  printf "Enter your GitHub email address: "
   read email < /dev/tty
 
   echo_yellow 'You will need to set up an apikey with Github.'
@@ -90,7 +90,7 @@ function getGitconfig {
   echo_yellow 'Call this token chromebook-environmentalizer and click Generate Token'
   echo_yellow 'Copy the token on the next page'
   echo_yellow 'paste into the command line with [CTRL + SHIFT + v] then press [ENTER]'
-  printf "${YELLOW}Enter your GitHub API key: ${NORMAL}"
+  printf "Enter your GitHub API key: "
   read apikey < /dev/tty
 
   sed -i "s/<github username>/$username/g" .gitconfig
@@ -183,7 +183,15 @@ function setupPostgresUser {
     echo_yellow 'You will be required to enter your password again...'
     cd ~
 
-    sudo -u postgres createuser -P $USER
+    postgresExitCode=1
+    while [[ $postgresExitCode -ne 0 ]]; do
+      sudo -u postgres createuser -P $USER
+      postgresExitCode=$?
+      if [[ $postgresExitCode -ne 0 ]]; then
+        echo_yellow "Sorry something went wrong. Try again."
+      fi
+    done
+
     sudo -u postgres createdb $USER
   fi
   # sudo touch /var/lib/postgresql/.psql_history
