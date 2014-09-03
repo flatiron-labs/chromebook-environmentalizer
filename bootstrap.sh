@@ -5,11 +5,10 @@ trap restoreSudoers INT
 echo_yellow()
 {
 echo -e "\E[1;33m$1"
-echo -e '\e[0m'
 }
 
 function editSudoers {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow "Setting up..."
   cd ~
   
@@ -18,7 +17,7 @@ function editSudoers {
 }
 
 function restoreSudoers {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow "Cleaning up..."
   cd ~
 
@@ -27,7 +26,7 @@ function restoreSudoers {
 }
 
 function copyBashProfile {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow 'Getting Flatiron School .bashrc...'
   cd ~
   
@@ -39,7 +38,7 @@ function copyBashProfile {
 }
 
 function installRVM {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow 'Installing RVM and Ruby 2.1.2...'
   cd ~
 
@@ -51,14 +50,14 @@ function installRVM {
 }
 
 function installNokogiri {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow 'Installing Nokogiri... This could be a while...'
   cd ~
   gem install nokogiri
 }
 
 function getGitconfig {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow "Setting up .gitconfig and GitHub SSH Key..."
   cd ~
   
@@ -72,10 +71,10 @@ function getGitconfig {
   YELLOW=$(tput setaf 3)
   NORMAL=$(tput sgr0)
 
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow 'You will now be prompted to for your github information.'
   echo_yellow 'If you do not have an account create one at github.com'
-  echo_yellow 'Right click on the link above and select open in browser'
+  echo_yellow 'Right click on the link above and select "Open Link"'
   printf "${YELLOW}Enter your GitHub username: ${NORMAL}"
   read username < /dev/tty
 
@@ -106,7 +105,7 @@ function getGitconfig {
 }
 
 function getGitignore {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow 'Setting up .gitignore...'
   cd ~
 
@@ -118,7 +117,7 @@ function getGitignore {
 }
 
 function setupGemrc {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow 'Setting up .gemrc...'
   cd ~
 
@@ -131,7 +130,7 @@ function setupGemrc {
 }
 
 function getIrbrc {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow 'Setting up .irbrc...'
   cd ~
 
@@ -143,7 +142,7 @@ function getIrbrc {
 }
 
 function setupSublimePreferences {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow 'Setting Up SublimeText 3.0...'
   cd ~
   subl && sleep 3
@@ -164,7 +163,7 @@ function setupSublimePreferences {
 }
 
 function setupDirStructure {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow 'Setting up basic development directory structure...'
   cd ~
 
@@ -172,7 +171,7 @@ function setupDirStructure {
 }
 
 function setupPostgresUser {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow 'Setting up postgres user...'
   echo_yellow 'You will be required to enter your password again...'
   cd ~
@@ -183,7 +182,7 @@ function setupPostgresUser {
 }
 
 function completeSetup {
-  echo_yellow ''
+  echo_yellow "\n"
   echo_yellow "Done!"
 }
 
