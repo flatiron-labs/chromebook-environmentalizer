@@ -176,8 +176,10 @@ function setupPostgresUser {
   echo_yellow 'You will be required to enter your password again...'
   cd ~
 
-  sudo -u postgres createuser -P $USER
-  sudo -u postgres createdb $USER
+  if [ -d /usr/bin/psql ]; then
+    sudo -u postgres createuser -P $USER
+    sudo -u postgres createdb $USER
+  fi
   # sudo touch /var/lib/postgresql/.psql_history
 }
 

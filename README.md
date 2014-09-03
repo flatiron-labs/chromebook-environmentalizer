@@ -1,14 +1,15 @@
 # Chromebook Environmentalizer
 
-A bash script to finish bootstraping an Acer c720 Chromebook that was set up using Flatiron's install script.
+A bash script to finish bootstraping an Acer c720 Chromebook that was set up using the [Flatiron School's Chrubuntu Installer](https://github.com/flatiron-labs/ubuntu-chromebook-installer). However, if you're using Ubuntu you can still use this script. Just follow the directions below.
 
 ## What It Sets Up
 
 1. Flatiron School's standard `.bashrc`, which includes case-insensitive auto completion, a nice prompt with git branch awareness, and many useful shortcuts.
 2. RVM and Ruby 2.1.2
-3. Sensible `.gitconfig`, `.gitignore`, `.gemrc`, and `.irbrc` files
-4. SSH Key for GitHub 
-5. A simple directory structure for well-organized code
+3. A Postgres User
+4. Sensible `.gitconfig`, `.gitignore`, `.gemrc`, and `.irbrc` files
+5. SSH Key for GitHub 
+6. A simple directory structure for well-organized code
 
 ## What You Need Before You Begin
 
