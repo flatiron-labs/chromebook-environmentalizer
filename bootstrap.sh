@@ -27,7 +27,7 @@ function restoreSudoers {
   chmod a+rx restore_sudoers.sh && sudo ./restore_sudoers.sh && rm restore_sudoers.sh
 }
 
-function copyBashProfile {
+function copyBashRc {
   echo "     "
   echo_yellow 'Getting Flatiron School .bashrc...'
   cd ~
@@ -37,6 +37,7 @@ function copyBashProfile {
   fi
 
   curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/bashrc" -o ".bashrc"
+  source "/usr/lib/postgresql/9.2/bin"
 }
 
 function installRVM {
@@ -222,9 +223,9 @@ function completeSetup {
 
 editSudoers
 getGitconfig
+copyBashRc
 setupPostgresUser
 getGlobalGitignore
-copyBashProfile
 installRVM
 installNokogiri
 setupGemrc
