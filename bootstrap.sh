@@ -107,16 +107,17 @@ function getGitconfig {
 
 }
 
-function getGitignore {
+function getGlobalGitignore {
   echo "     "
-  echo_yellow 'Setting up .gitignore...'
+  echo_yellow 'Setting up .gitignore_global...'
   cd ~
 
   if [ -f .gitignore ]; then
-    mv .gitignore .gitignore.old
+    mv .gitignore_global .gitignore_global.old
   fi
 
-  curl "http://bit.ly/flatiron-gitignore" -o ".gitignore"
+  curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/ubuntu-gitignore" -o ".gitignore_global"
+  git config --global core.excludesfile ~/.gitignore_global
 }
 
 function setupGemrc {
@@ -213,6 +214,7 @@ function completeSetup {
 editSudoers
 getGitconfig
 setupPostgresUser
+getGlobalGitignore
 copyBashProfile
 installRVM
 installNokogiri
