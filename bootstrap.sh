@@ -204,8 +204,8 @@ function setupPostgresUser {
     fi
 
     sudo -u postgres createdb $USER
+    touch $HOME/.psql_history
   fi
-  # sudo touch /var/lib/postgresql/.psql_history
 }
 
 function deactivateChromebookEnvironmentalizer {
