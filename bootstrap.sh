@@ -37,7 +37,7 @@ function copyBashRc {
   fi
 
   curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/bashrc" -o ".bashrc"
-  source "/usr/lib/postgresql/9.2/bin"
+  source "/usr/lib/postgresql/9.3/bin"
 }
 
 function installRVM {
