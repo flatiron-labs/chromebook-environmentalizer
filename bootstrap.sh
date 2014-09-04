@@ -80,7 +80,7 @@ function getGitconfig {
 
   echo "     "
   echo_yellow 'You will now be prompted to for your github information.'
-  echo_yellow 'If you do not have an account create one at github.com'
+  echo_yellow 'If you do not have an account create one at https://github.com/'
   echo_yellow 'Right click on the link above and select "Open Link"'
   printf "Enter your GitHub username: "
   read username < /dev/tty
