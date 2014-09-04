@@ -150,7 +150,7 @@ function getIrbrc {
 }
 
 function setupSublimePreferences {
-  if [ ! -d "$HOME/.config/sublime-text-3/PackagesColor Scheme - Default" ]
+  if [ ! -d "$HOME/.config/sublime-text-3/PackagesColor Scheme - Default" ]; then
     echo "     "
     echo_yellow 'Setting Up SublimeText 3.0...'
     cd ~
