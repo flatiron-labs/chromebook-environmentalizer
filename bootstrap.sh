@@ -198,7 +198,7 @@ function setupPostgresUser {
 }
 
 function deactivateChromebookEnvironmentalizer {
-  if [ -d /etc/chromebook-environmentalizer/ && ! -f /etc/chromebook-environmentalizer/.completed ]
+  if [[ -d /etc/chromebook-environmentalizer/ && ! -f /etc/chromebook-environmentalizer/.completed ]]
     then
     sudo touch /etc/chromebook-environmentalizer/.completed
     sudo echo -e 'Hidden=true' >> /usr/share/upstart/xdg/autostart/chromebook-environmentalizer.desktop
