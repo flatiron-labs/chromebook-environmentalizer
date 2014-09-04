@@ -40,22 +40,26 @@ function copyBashProfile {
 }
 
 function installRVM {
-  echo "     "
-  echo_yellow 'Installing RVM and Ruby 2.1.2...'
-  cd ~
+  if [ ! -d "$HOME/.rvm" ]; then
+    echo "     "
+    echo_yellow 'Installing RVM and Ruby 2.1.2...'
+    cd ~
 
-  \curl -L https://get.rvm.io | bash -s stable --ruby=2.1.2
-  source $HOME/.bashrc
-  source $HOME/.rvm/scripts/rvm
+    \curl -L https://get.rvm.io | bash -s stable --ruby=2.1.2
+    source "$HOME/.bashrc"
+    source "$HOME/.rvm/scripts/rvm"
 
-  rvm use 2.1.2 --default
+    rvm use 2.1.2 --default
+  fi
 }
 
 function installNokogiri {
-  echo "     "
-  echo_yellow 'Installing Nokogiri... This could be a while...'
-  cd ~
-  gem install nokogiri
+  if [ ! -f "$HOME/.rvm/gems/ruby-2.1.2/bin/nokogiri" ]; then
+    echo "     "
+    echo_yellow 'Installing Nokogiri... This could be a while...'
+    cd ~
+    gem install nokogiri
+  fi
 }
 
 function getGitconfig {
@@ -146,32 +150,36 @@ function getIrbrc {
 }
 
 function setupSublimePreferences {
-  echo "     "
-  echo_yellow 'Setting Up SublimeText 3.0...'
-  cd ~
-  subl && sleep 3
-  kill -15 $(ps aux | grep subl | grep -v grep | awk '{ print $2 }')
-  
-  cd "$HOME/.config/sublime-text-3/Installed Packages"
-  curl "https://sublime.wbond.net/Package%20Control.sublime-package" -o "Package Control.sublime-package"
+  if [ ! -d "$HOME/.config/sublime-text-3/PackagesColor Scheme - Default" ]
+    echo "     "
+    echo_yellow 'Setting Up SublimeText 3.0...'
+    cd ~
+    subl && sleep 3
+    kill -15 $(ps aux | grep subl | grep -v grep | awk '{ print $2 }')
+    
+    cd "$HOME/.config/sublime-text-3/Installed Packages"
+    curl "https://sublime.wbond.net/Package%20Control.sublime-package" -o "Package Control.sublime-package"
 
-  cd "$HOME/.config/sublime-text-3/Packages"
-  mkdir Color\ Scheme\ -\ Default
-  cd Color\ Scheme\ -\ Default
-  curl "http://flatironschool.s3.amazonaws.com/curriculum/resources/environment/themes/Solarized%20Flatiron.zip" -o "Solarized Flatiron.zip"
-  unzip "Solarized Flatiron.zip"
-  rm "Solarized Flatiron.zip" "Solarized Dark (Flatiron).terminal" "Solarized Light (Flatiron).terminal"
-  
-  cd "$HOME/.config/sublime-text-3/Packages/User"
-  curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/Preferences.sublime-settings" -o "Preferences.sublime-settings"
+    cd "$HOME/.config/sublime-text-3/Packages"
+    mkdir "Color Scheme - Default"
+    cd "Color Scheme - Default"
+    curl "http://flatironschool.s3.amazonaws.com/curriculum/resources/environment/themes/Solarized%20Flatiron.zip" -o "Solarized Flatiron.zip"
+    unzip "Solarized Flatiron.zip"
+    rm "Solarized Flatiron.zip" "Solarized Dark (Flatiron).terminal" "Solarized Light (Flatiron).terminal"
+    
+    cd "$HOME/.config/sublime-text-3/Packages/User"
+    curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/Preferences.sublime-settings" -o "Preferences.sublime-settings"
+  fi
 }
 
 function setupDirStructure {
-  echo "     "
-  echo_yellow 'Setting up basic development directory structure...'
-  cd ~
+  if [ ! -d "$HOME/Development/code" ]; then
+    echo "     "
+    echo_yellow 'Setting up basic development directory structure...'
+    cd ~
 
-  mkdir -p Development/code
+    mkdir -p Development/code
+  fi
 }
 
 function setupPostgresUser {
@@ -181,17 +189,18 @@ function setupPostgresUser {
     echo_yellow 'You will be required to enter your password again...'
     cd ~
 
-  isPostgresUserUndefined=`psql postgres -tAc "SELECT 1 FROM pg_roles WHERE rolname='$USER'"`
-  if [ $isPostgresUserUndefined -ne 1 ]; then
-    postgresExitCode=1
-    while [[ $postgresExitCode -ne 0 ]]; do
-      sudo -u postgres createuser -P $USER
-      postgresExitCode=$?
-      if [[ $postgresExitCode -ne 0 ]]; then
-        echo_yellow "Sorry something went wrong. Try again."
-      fi
-    done
-  fi
+    `psql postgres -tAc "SELECT 1 FROM pg_roles WHERE rolname='$USER'"`
+    isPostgresUserUndefined=$?
+    if [ $isPostgresUserUndefined -ne 0 ]; then
+      postgresExitCode=1
+      while [[ $postgresExitCode -ne 0 ]]; do
+        sudo -u postgres createuser -P $USER
+        postgresExitCode=$?
+        if [[ $postgresExitCode -ne 0 ]]; then
+          echo_yellow "Sorry something went wrong. Try again."
+        fi
+      done
+    fi
 
     sudo -u postgres createdb $USER
   fi
