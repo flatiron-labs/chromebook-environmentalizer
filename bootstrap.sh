@@ -196,7 +196,9 @@ function setupPostgresUser {
   if [ -f /usr/bin/psql ]; then
     echo "     "
     echo_yellow 'Setting up postgres user...'
-    echo_yellow 'You will be required to enter your password again...'
+    echo_yellow 'You will need to create a password for postgres...'
+    echo_yellow 'You will be required to enter that password twice...'
+    echo_yellow 'It is recommended to make this the same password as your chromebook...'
     cd ~
 
     `psql postgres -tAc "SELECT 1 FROM pg_roles WHERE rolname='$USER'"`
