@@ -201,6 +201,12 @@ function setupPostgresUser {
     echo_yellow 'It is recommended to make this the same password as your chromebook...'
     cd ~
 
+    # checks whether or not the computer has ssl certs
+    # and makes them if they aren't there
+    if [ ! -f /etc/ssl/certs/ssl-cert-snakeoil.pem ]; then
+      sudo make-ssl-cert generate-default-snakeoil
+    fi
+
     `psql postgres -tAc "SELECT 1 FROM pg_roles WHERE rolname='$USER'"`
     isPostgresUserUndefined=$?
     if [ $isPostgresUserUndefined -ne 0 ]; then
