@@ -43,7 +43,7 @@ function copyBashRc {
 function installRVM {
   if [ ! -d "$HOME/.rvm" ]; then
     echo "     "
-    echo_yellow 'Installing RVM and Ruby 2.1.2...'
+    echo_yellow 'Installing RVM and Ruby 2.1.3...'
     cd ~
 
     \curl -L https://get.rvm.io | bash -s stable --ruby=2.1.3
@@ -54,8 +54,17 @@ function installRVM {
   fi
 }
 
+function installRspec {
+  if [ ! -f "$HOME/.rvm/gems/ruby-2.1.3/bin/rspec" ]; then
+    echo "     "
+    echo_yellow 'Installing Rspec...'
+    cd ~
+    gem install rspec
+  fi
+}
+
 function installNokogiri {
-  if [ ! -f "$HOME/.rvm/gems/ruby-2.1.2/bin/nokogiri" ]; then
+  if [ ! -f "$HOME/.rvm/gems/ruby-2.1.3/bin/nokogiri" ]; then
     echo "     "
     echo_yellow 'Installing Nokogiri... This could be a while...'
     cd ~
@@ -227,6 +236,7 @@ copyBashRc
 setupPostgresUser
 getGlobalGitignore
 installRVM
+installRspec
 installNokogiri
 setupGemrc
 getIrbrc
