@@ -46,11 +46,11 @@ function installRVM {
     echo_yellow 'Installing RVM and Ruby 2.1.2...'
     cd ~
 
-    \curl -L https://get.rvm.io | bash -s stable --ruby=2.1.2
+    \curl -L https://get.rvm.io | bash -s stable --ruby=2.1.3
     source "$HOME/.bashrc"
     source "$HOME/.rvm/scripts/rvm"
 
-    rvm use 2.1.2 --default
+    rvm use 2.1.3 --default
   fi
 }
 
