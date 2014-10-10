@@ -63,6 +63,15 @@ function installRspec {
   fi
 }
 
+function installBundler {
+  if [ ! -f "$HOME/.rvm/gems/ruby-2.1.3/bin/bundler" ]; then
+    echo "     "
+    echo_yellow 'Installing Bundler...'
+    cd ~
+    gem install bundler
+  fi
+}
+
 function installNokogiri {
   if [ ! -f "$HOME/.rvm/gems/ruby-2.1.3/bin/nokogiri" ]; then
     echo "     "
@@ -245,6 +254,7 @@ setupPostgresUser
 getGlobalGitignore
 installRVM
 installRspec
+installBundler
 installNokogiri
 setupGemrc
 getIrbrc
