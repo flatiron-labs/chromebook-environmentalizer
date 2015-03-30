@@ -13,7 +13,7 @@ function editSudoers {
   echo "     "
   echo_yellow "Setting up..."
   cd ~
-  
+
   curl "https://raw.githubusercontent.com/flatiron-labs/chromebook-environmentalizer/master/edit_sudoers.sh" -o "edit_sudoers.sh"
   chmod a+rx edit_sudoers.sh && sudo ./edit_sudoers.sh $USER && rm edit_sudoers.sh
 }
@@ -31,7 +31,7 @@ function copyBashRc {
   echo "     "
   echo_yellow 'Getting Flatiron School .bashrc...'
   cd ~
-  
+
   if [ -f .bashrc ]; then
     mv .bashrc .bashrc.old
   fi
@@ -43,10 +43,11 @@ function copyBashRc {
 function installRVM {
   if [ ! -d "$HOME/.rvm" ]; then
     echo "     "
-    echo_yellow 'Installing RVM and Ruby 2.1.3...'
+    echo_yellow 'Installing RVM and Ruby...'
     cd ~
 
-    \curl -L https://get.rvm.io | bash -s stable --ruby=2.1.3
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+    \curl -sSL https://get.rvm.io | bash -s stable --ruby
     source "$HOME/.bashrc"
     source "$HOME/.rvm/scripts/rvm"
 
@@ -85,7 +86,7 @@ function getGitconfig {
   echo "     "
   echo_yellow "Setting up .gitconfig and GitHub SSH Key..."
   cd ~
-  
+
   if [ -f .gitconfig ]; then
     mv .gitconfig .gitconfig.old
   fi
@@ -123,7 +124,7 @@ function getGitconfig {
   if [ ! -f .ssh/id_rsa.pub ]; then
     ssh-keygen -t rsa -N '' -C "$username@github" -f "$HOME/.ssh/id_rsa"
   fi
-  
+
   sshkey=$(cat $HOME/.ssh/id_rsa.pub)
 
   curl -s -u "$username:$apikey" https://api.github.com/user/keys -d "{\"title\":\"$username@github\",\"key\":\"$sshkey\"}"
@@ -175,7 +176,7 @@ function setupSublimePreferences {
     cd ~
     subl && sleep 3
     kill -15 $(ps aux | grep subl | grep -v grep | awk '{ print $2 }')
-    
+
     cd "$HOME/.config/sublime-text-3/Installed Packages"
     curl "https://sublime.wbond.net/Package%20Control.sublime-package" -o "Package Control.sublime-package"
 
@@ -185,7 +186,7 @@ function setupSublimePreferences {
     curl "http://flatironschool.s3.amazonaws.com/curriculum/resources/environment/themes/Solarized%20Flatiron.zip" -o "Solarized Flatiron.zip"
     unzip "Solarized Flatiron.zip"
     rm "Solarized Flatiron.zip" "Solarized Dark (Flatiron).terminal" "Solarized Light (Flatiron).terminal"
-    
+
     cd "$HOME/.config/sublime-text-3/Packages/User"
     curl "https://raw.githubusercontent.com/flatiron-school/dotfiles/master/Preferences.sublime-settings" -o "Preferences.sublime-settings"
   fi
